@@ -1,2 +1,2 @@
 # broMQTTker
-Implementación del modelo publish/subscribe
+Implementación del modelo Publish/Subscribe

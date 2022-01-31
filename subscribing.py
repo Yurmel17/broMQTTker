@@ -5,12 +5,12 @@ from paho.mqtt import client as mqtt_client
 
 broker = 'broker.emqx.io'
 port = 1883
-topic_1 = "Noticias/UIS"
-topic_2 = "Noticias/SIU"
+topic_1 = "noticias/uis"
+topic_2 = "noticias/siu"
 # generate client ID with pub prefix randomly
 client_id = f'python-mqtt-{random.randint(0, 100)}'
 
-def connect_mqtt() -> mqtt_client:
+def connect_mqtt():
     def on_connect(client, userdata, flags, rc):
         if rc == 0:
             print("Connected to MQTT Broker!")
@@ -23,13 +23,20 @@ def connect_mqtt() -> mqtt_client:
     return client
 
 
-def subscribe(client: mqtt_client):
+def subscribe(client):
     
-    topic = input("Hola! Adelante podrá obtener la noticia más actualizada de esta semana, escoja el/los topic de su interés: \n")
+    print("Hola! Adelante podrá obtener la noticia más actualizada de esta semana, escoja el/los topic de su interés: \n")
+    print(f"1 - para suscribirse al topic {topic_1}\n")
+    print(f"2 - para suscribirse al topic {topic_2}\n")
+    print(f"3 - para suscribirse a ambos")
+    topic = input("\n")
     
-    if topic == 1:
+    if topic == '1':
         client.subscribe(topic_1)
-    elif topic == 2:
+    elif topic == '2':
+        client.subscribe(topic_2)
+    elif topic == '3':
+        client.subscribe(topic_1)
         client.subscribe(topic_2)
     else:
         print("Failed to find a topic")
